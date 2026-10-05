@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HandsOn - Proyecto Feria de Robótica</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-dark: #0a0c10;
+      --card-bg: #12161f;
+      --card-border: #1e2638;
+      --neon-green: #00ff88;
+      --neon-yellow: #ffe600;
+      --text-main: #e2e8f0;
+      --text-muted: #94a3b8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 20px 10px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    /* HEADER */
+    header {
+      text-align: center;
+      padding: 3rem 1.5rem;
+      background: linear-gradient(180deg, #121824 0%, var(--bg-dark) 100%);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      margin-bottom: 2.5rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 25px rgba(0, 255, 136, 0.08);
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--neon-green), var(--neon-yellow));
+    }
+
+    header h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.8rem;
+      letter-spacing: 2px;
+      color: #ffffff;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    header h1 span {
+      color: var(--neon-green);
+      text-shadow: 0 0 12px rgba(0, 255, 136, 0.4);
+    }
+
+    header p.subtitle {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.3rem;
+      color: var(--neon-yellow);
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    /* TARJETAS DE SESIÓN */
+    .session-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+    }
+
+    .session-card:hover {
+      border-color: var(--neon-green);
+      box-shadow: 0 4px 20px rgba(0, 255, 136, 0.1);
+    }
+
+    .session-card h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.4rem;
+      color: #ffffff;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .session-badge {
+      background: rgba(0, 255, 136, 0.15);
+      color: var(--neon-green);
+      border: 1px solid var(--neon-green);
+      padding: 2px 10px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+    }
+
+    .session-card h3 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.2rem;
+      color: var(--neon-yellow);
+      margin: 1.2rem 0 0.5rem 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .session-card p, .session-card li {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    ul li {
+      position: relative;
+      padding-left: 20px;
+      margin-bottom: 6px;
+    }
+
+    ul li::before {
+      content: '⚡';
+      position: absolute;
+      left: 0;
+      color: var(--neon-green);
+      font-size: 0.8rem;
+    }
+
+    /* CONTENEDORES DE IMÁGENES COMPACTAS */
+    .img-box {
+      margin: 1.5rem 0 0.5rem 0;
+      text-align: center;
+      background: #080a0d;
+      padding: 15px;
+      border-radius: 10px;
+      border: 1px solid #1c2333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    /* Tamaño maximo estándar controlado */
+    .img-box img {
+      max-height: 280px;
+      max-width: 100%;
+      object-fit: contain;
+      border-radius: 6px;
+      border: 1px solid var(--card-border);
+    }
+
+    /* Corrección para imágenes/PDFs tomados en vertical que deben verse horizontal */
+    .img-box.rotate-horizontal {
+      min-height: 320px;
+    }
+
+    .img-box.rotate-horizontal img {
+      max-height: 260px;
+      transform: rotate(-90deg);
+      transform-origin: center;
+    }
+
+    .img-caption {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+      font-style: italic;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+      header h1 { font-size: 2rem; }
+      .session-card { padding: 1.2rem; }
+      .img-box.rotate-horizontal img {
+        max-height: 200px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Hands<span>On</span></h1>
+      <p class="subtitle">Sign Language Detector — Proyecto de Robótica e Inclusión</p>
+    </header>
+
+    <!-- SESIÓN 1 -->
+    <section class="session-card">
+      <h2><span class="session-badge">SESIÓN 01</span> Lluvia de Ideas y Filtrado Metodológico</h2>
+      <p>
+        Durante la primera sesión de trabajo, el equipo analizó diversas problemáticas cotidianas que podían ser abordadas mediante soluciones tecnológicas, mecatrónicas y de software. Se realizó una sesión intensiva de lluvia de ideas guiada por criterios de impacto social, factibilidad técnica y originalidad.
+      </p>
+
+      <h3>Propuestas Evaluadas:</h3>
+      <ul>
+        <li><strong>Idea A - Cinturón Háptico:</strong> Dispositivo portable de asistencia de navegación mediante sensores de ultrasonido y motores de vibración.</li>
+        <li><strong>Idea B - Riego Automatizado:</strong> Sistema de control higrométrico con microcontrolador para optimización de agua en cultivos domésticos.</li>
+        <li><strong>Idea C (Ganadora) - Lector / Traductor de Señas:</strong> Sistema embebido inteligente capaz de reconocer patrones gestuales y convertirlos a texto/voz en tiempo real.</li>
+        <li><strong>Idea D - Comedero Inteligente:</strong> Dispensador programable automatizado con báscula e identificación para mascotas.</li>
+      </ul>
+
+      <h3>Metodología de Selección:</h3>
+      <p>
+        Mediante una matriz de evaluación con votación ponderada, la <strong>Idea C</strong> resultó seleccionada debido a su alto impacto inclusivo y el desafío tecnológico de integración entre visión computacional, hardware embebido e interfaz de usuario.
+      </p>
+
+      <div class="img-box rotate-horizontal">
+        <img src="ROBOTICA.pdf" alt="Flujo de trabajo y evaluación de ideas">
+      </div>
+      <p class="img-caption">Figura 1.1: Diagrama de flujo detallado del proceso de selección y ciclo de desarrollo del proyecto.</p>
+    </section>
+
+    <!-- SESIÓN 2 -->
+    <section class="session-card">
+      <h2><span class="session-badge">SESIÓN 02</span> Identidad Corporativa y Modelo de Negocio</h2>
+      <p>
+        Con la idea seleccionada, la segunda sesión se centró en la estructuración de la identidad de la empresa y la validación del modelo de negocio de impacto social. Se definió la propuesta de valor para asegurar que el producto no solo fuera funcional, sino viable comercial e institucionalmente.
+      </p>
+
+      <h3>Proceso de Naming:</h3>
+      <ul>
+        <li>SignSense</li>
+        <li><strong>HandsOn <span style="color:var(--neon-green); font-weight:bold;">[Elegido]</span>:</strong> Representa la acción directa de las manos y el enfoque práctico del dispositivo.</li>
+        <li>VozEnSeñas</li>
+        <li>Signo Tech</li>
+        <li>Gestura</li>
+      </ul>
+
+      <h3>Modelo Canvas y Clientes Objetivo:</h3>
+      <ul>
+        <li><strong>Usuarios Directos:</strong> Personas con discapacidad auditiva y del habla que buscan mayor autonomía, facilidad de comunicación, acceso educativo y social.</li>
+        <li><strong>Clientes Institucionales:</strong> Hospitales, entidades bancarias, instituciones educativas y oficinas de atención al cliente públicas que requieren cumplir normativas de inclusión y accesibilidad universal.</li>
+        <li><strong>Propuesta de Valor:</strong> Dispositivo ligero ("HandsOn Device") capaz de procesar señas a texto/voz con facilidad de uso, actualización continua de vocabulario gestual y bajo costo.</li>
+      </ul>
+
+      <div class="img-box rotate-horizontal">
+        <img src="ROBOTICA-1.pdf" alt="Boceto de Idea de Negocio HandsOn">
+      </div>
+      <p class="img-caption">Figura 2.1: Lienzo conceptual de negocio e identidad visual de la marca HandsOn.</p>
+    </section>
+
+    <!-- SESIÓN 3 -->
+    <section class="session-card">
+      <h2><span class="session-badge">SESIÓN 03</span> Bocetos Conceptuales y Arquitectura Física</h2>
+      <p>
+        Se plasmaron los primeros esquemas del chasis del dispositivo, ubicación de sensores, módulos de cámara y ergonomía general para la experiencia del usuario final.
+      </p>
+
+      <h3>Aspectos Clave del Boceto:</h3>
+      <ul>
+        <li>Integración de pantalla frontal para lectura inmediata de texto traducido.</li>
+        <li>Sensor/Cámara superior en ángulo óptico para captura efectiva de señas gestuales.</li>
+        <li>Diseño compacto portátil estilo tablet/consola interactiva para facilitar su traslado.</li>
+      </ul>
+
+      <div class="img-box rotate-horizontal">
+        <img src="Boceto.jpeg" alt="Boceto conceptual preliminar">
+      </div>
+      <p class="img-caption">Figura 3.1: Bocetos preliminares de exploración de forma e integración de hardware.</p>
+    </section>
+
+    <!-- SESIÓN 4 -->
+    <section class="session-card">
+      <h2><span class="session-badge">SESIÓN 04</span> Prototipado 3D y Simulación en Tinkercad</h2>
+      <p>
+        En esta etapa se desarrolló la primera versión digital en 3D del chasis contenedor mediante Tinkercad. Se definieron las dimensiones del panel principal y la posición exacta de los componentes de procesamiento e interfaz.
+      </p>
+
+      <h3>Especificaciones del Prototipo Digital:</h3>
+      <ul>
+        <li><strong>Módulo Superior:</strong> Carcasa para la cámara de captura gestual y LED indicador de estado de lectura.</li>
+        <li><strong>Panel Frontal:</strong> Marco protector para pantalla LCD/OLED con matriz de botones de configuración y selección rápida.</li>
+        <li><strong>Ajuste Estructural:</strong> Carcasa posterior con ventilación para el microcontrolador/SoC procesador.</li>
+      </ul>
+
+      <div class="img-box">
+        <img src="Tinkercad.png" alt="Prototipo Tinkercad de HandsOn">
+      </div>
+      <p class="img-caption">Figura 4.1: Modelo CAD tridimensional del prototipo del Lector HandsOn diseñado en Tinkercad.</p>
+    </section>
+  </div>
+
+</body>
+</html>
